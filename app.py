@@ -1,5 +1,5 @@
 # -*-coding:utf-8-*-
-from flask import Flask, make_response
+from flask import Flask, make_response, url_for
 from flask import request
 from flask import Response
 from flask import send_file
@@ -21,12 +21,18 @@ def not_found(error):
 
 @app.route('/', methods=['GET', 'POST'])
 def hello():
+    print(request.cookies)
     if request.method == 'GET':
         print(request.method, request.args)
 
     elif request.method == 'POST':
         print(request.method, request.form)
     return "hello 典!"
+
+
+@app.route('/user/<name>', methods=['GET', 'POST'])
+def index(name):
+    return render_template('index.html', name=name)
 
 
 if __name__ == '__main__':
